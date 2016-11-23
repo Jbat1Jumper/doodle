@@ -140,6 +140,7 @@ doodle () {
 doodles () {
     s1="\e[0m"
     s2="\e[4m"
+    mkdir -p ~/Doodles
     rows=""
     for f in $(ls ~/Doodles); do
         if [ "$(cd ~/Doodles/$f && doodle is)" = "yes" ]; then
@@ -148,6 +149,10 @@ doodles () {
             rows=$rows"${s1}$f:¶${s2}...\\n"
         fi
     done
-    printf "$rows" | column -s¶ -t
+    if [ "$rows" ]; then
+        printf "$rows" | column -s¶ -t
+    else
+        echo "No doodles yet, use 'doodle now' to fix the situation!"
+    fi
 }
 
